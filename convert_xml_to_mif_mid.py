@@ -1,4 +1,4 @@
-#Последний рабочий вариант
+# coding: utf8
 
 from xml.etree import ElementTree as ET
 
@@ -8,15 +8,18 @@ coord_one = []
 
 mif_file = open('response.mif', 'w', encoding='cp1251')
 mid_file = open('response.mid', 'w', encoding='cp1251')
-str_heading = 'Version 300' + '\n' + 'Charset "WindowsCyrillic"' + '\n' + \
+head = u'Version 300' + '\n' + 'Charset "WindowsCyrillic"' + '\n' + \
                'Delimiter ","' + '\n' + 'CoordSys NonEarth Units "m" Bounds (200000, 2000000) (800000, 2500000)' + \
                '\n' + 'Columns 1' + '\n' + '  ' + 'КН Char(30)' + '\n' + 'Data' + 2*'\n'
+
+str_head = head.encode('cp1251').decode('cp1251')
+
 # Flags
 contur = 0
 conturs = 0
 land_records = 0
 
-mif_file.write(str_heading)
+mif_file.write(str_head)
 
 xml_iter = ET.iterparse('Response №50-27939031.xml', events=('start', 'end'))
 for event, elem in xml_iter:
